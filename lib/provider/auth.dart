@@ -29,27 +29,42 @@ class Auth with ChangeNotifier {
     return null;
   }
 
-  //sign Up method
-  Future<void> signUp(String email, String password) async {
-    // final url = 'https://reqres.in/api/register';
+// void handlesignup(Map<String, >) async{
+//   var client = http.Client();
+// try {
+//   var response = await client.post(
+//       Uri.https('example.com', 'whatsit/create'),
+//       body: {'name': 'doodle', 'color': 'blue'});
+//   var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+//   var uri = Uri.parse(decodedResponse['uri'] as String);
+//   print(await client.get(uri));
+// } finally {
+//   client.close();
+// }
+// }
+  Future<void> signUpUser(Map<String, dynamic> signUpUserData) async {
+    final url = 'https://reqres.in/api/register';
     try {
-     final response = await http.post(Uri.parse('https://reqres.in/api/register'),
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'password': password,
-      }),
-    );
-      final extractedResponse = json.decode(response.body);
-      print(
-          "${extractedResponse.body}..................................................");
-      // if (extractedResponse['error'] != null) {
-      //   throw HttpException(extractedResponse['error']);
+      // final response = await http.post(
+      //   url,
+      //   body: json.encode(
+      //     {
+      //       'email': signUpUserData['name'],
+      //       'password': signUpUserData['job'],
+      //     },
+      //   ),
+      // );
+      // print('................................................${response.body}');
+
+      // final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      // if (extractedData == null) {
+      //   return;
       // }
-      _token = extractedResponse['token'];
-      print('asfdfsdfadsffffffffffffffffffffffff $_token');
-      _userId = extractedResponse['id'];
+      final extractedData = { "token": "QpwL5tke4Pnpja7X4"};
+      _token = extractedData['token'];
+      // _userId = extractedData['id'];
       _expireyDate = DateTime.now().add(
-        Duration(seconds: 300),
+        Duration(seconds: 10),
       );
 
       autoLogOuttimerset();
@@ -58,11 +73,10 @@ class Auth with ChangeNotifier {
       final userData = json.encode(
         {
           'token': _token,
-          'userId': _userId,
+          // 'userId': _userId,
           'expireyDate': _expireyDate.toIso8601String(),
         },
       );
-      print(response.body);
     } catch (error) {
       throw error;
     }
@@ -96,7 +110,7 @@ class Auth with ChangeNotifier {
       final userData = json.encode(
         {
           'token': _token,
-          'userId': _userId,
+          // 'userId': _userId,
           'expireyDate': _expireyDate.toIso8601String(),
         },
       );

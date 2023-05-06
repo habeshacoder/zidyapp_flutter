@@ -92,7 +92,7 @@ class _SignInWidgetState extends State<SignInWidget> {
       isSendingSignUpRequest = true;
     });
     try {
-      await Provider.of<Auth>(context, listen: false).signIn(_authSignInData['email']!,_authSignInData['password']!);
+      await Provider.of<Auth>(context, listen: false).signUpUser(_authSignInData);
     } on HttpException catch (error) {
       print(error);
 

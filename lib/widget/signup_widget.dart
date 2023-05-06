@@ -17,7 +17,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   // use it to manage circular pregress indicator
   bool isSendingSignUpRequest = false;
   //store user data
-  Map<String, String> _authSignUpData = {
+  Map<String, dynamic> _authSignUpData = {
     'email': '',
     'password': '',
   };
@@ -79,10 +79,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       },
     );
   }
+  
 
   //sign up method
   void _submit() async {
-    
+    print('object......................................BEGIN SUBMTING FORM');
     if (!_SignUpformKey.currentState!.validate()) {
       return;
     }
@@ -92,8 +93,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       isSendingSignUpRequest = true;
     });
     try {
+      print(
+          '.................................TRY BLOCK INSIDE SUBMIT BEFOR CALLING');
       await Provider.of<Auth>(context, listen: false)
-          .signUp(_authSignUpData['email']!, _authSignUpData['password']!);
+          .signUpUser(_authSignUpData);
+      print(
+          '.................................TRY BLOCK INSIDE SUBMIT AFTER CALLING SIGN UP');
     } on HttpException catch (error) {
       print(error);
       print('.....................err');
@@ -199,9 +204,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   validator: SignUpFormHandler.passwordValidator,
                   focusNode: passwordFocusNode,
                   key: passwordFieldKey,
-                  onFieldSubmitted: (value) {
-                    _submit();
-                  },
+                  onFieldSubmitted: (value) => _submit(),
                   onSaved: (newValue) {
                     _authSignUpData['password'] = newValue!;
                   },

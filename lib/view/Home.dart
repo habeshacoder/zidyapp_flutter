@@ -78,7 +78,11 @@ class _HomeState extends State<Home> {
               color: Colors.white, fontSize: 23, fontFamily: 'Open Sans'),
         ),
         actions: [
-          TextButton.icon(onPressed: Provider.of<Auth>(context).logOut, icon: Icon(Icons.logout_sharp), label: Text('Log Out'))],
+           InkWell(
+            onTap:  Provider.of<Auth>(context).logOut,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 6),
+              child: Text('Log Out')))],
       ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
